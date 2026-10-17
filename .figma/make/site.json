@@ -1,0 +1,18 @@
+{
+  "title": "BizFlow",
+  "language": "en",
+  "icons": {
+    "icon": "/favicon.ico"
+  },
+  "openGraph": {
+    "image": "/pwa/shot-wide.png"
+  },
+  "description": "BizFlow is a comprehensive business operating platform designed for growing businesses, integrating HR, finance, operations, and customer management into one seamless system.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

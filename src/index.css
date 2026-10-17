@@ -1,0 +1,565 @@
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Inter:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
+@import 'tailwindcss';
+
+html,
+body,
+#root {
+  max-width: 100%;
+  min-height: 100%;
+}
+body {
+  overflow-x: hidden;
+}
+@layer base {
+  main,
+  main > *,
+  .grid > * {
+    min-width: 0;
+  }
+  .grid:not([class*='grid-cols']) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  h1, h2, h3, h4, p, li, dd, label, td, th, a, span {
+    overflow-wrap: break-word;
+  }
+}
+img,
+svg,
+canvas {
+  max-width: 100%;
+}
+input,
+select,
+textarea {
+  min-width: 0;
+}
+.min-h-screen {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+.h-screen {
+  height: 100vh;
+  height: 100dvh;
+}
+.mobile-save-bar {
+  bottom: calc(3.5rem + env(safe-area-inset-bottom));
+}
+@media (min-width: 48rem) {
+  .mobile-save-bar {
+    bottom: 0;
+  }
+}
+
+@theme {
+  --font-display: 'Bricolage Grotesque', 'Inter', system-ui, sans-serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'DM Mono', ui-monospace, monospace;
+
+  --color-teal: #087e8b;
+  --color-teal-600: #066b76;
+  --color-midnight: #0b2530;
+  --color-midnight-2: #123340;
+  --color-mint: #35d0ba;
+  --color-softmint: #ddf7f3;
+  --color-cloud: #f7f9f8;
+  --color-ink: #102a30;
+  --color-slate: #60777d;
+  --color-line: #d8e2e3;
+  --color-ok: #16a34a;
+  --color-warn: #f59e0b;
+  --color-err: #dc3e42;
+  --color-info: #2878d8;
+}
+
+:root {
+  --radius: 6px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  background: var(--color-cloud);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: 'tnum' 1, 'ss01' 1;
+}
+
+.dashboard-shell {
+  position: relative;
+  isolation: isolate;
+  background:
+    radial-gradient(circle at 82% 4%, color-mix(in oklab, var(--color-mint) 12%, transparent) 0, transparent 28rem),
+    radial-gradient(circle at 12% 90%, color-mix(in oklab, var(--color-teal) 7%, transparent) 0, transparent 32rem),
+    var(--color-cloud);
+}
+.dashboard-shell::before {
+  position: fixed;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  content: '';
+  opacity: 0.38;
+  background-image: linear-gradient(color-mix(in oklab, var(--color-teal) 7%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in oklab, var(--color-teal) 7%, transparent) 1px, transparent 1px);
+  background-size: 4rem 4rem;
+  mask-image: linear-gradient(to bottom, black, transparent 70%);
+}
+
+.dashboard-nav {
+  background:
+    radial-gradient(circle at 10% 0%, color-mix(in oklab, var(--color-mint) 12%, transparent), transparent 22rem),
+    linear-gradient(165deg, var(--color-midnight-2), var(--color-midnight) 55%, color-mix(in oklab, var(--color-midnight) 88%, black));
+  box-shadow: inset -1px 0 color-mix(in oklab, white 8%, transparent), 1.5rem 0 4rem color-mix(in oklab, var(--color-midnight) 9%, transparent);
+}
+.dashboard-nav.sidebar-solid {
+  background: var(--sidebar-solid, var(--color-midnight-2));
+  color: var(--sidebar-on, white);
+}
+.dashboard-nav.sidebar-solid .text-white {
+  color: var(--sidebar-on);
+}
+.dashboard-nav.sidebar-solid .bg-white\/10.text-white,
+.dashboard-nav.sidebar-solid .bg-white\/15.text-white {
+  background-color: var(--sidebar-active-bg);
+  color: var(--sidebar-active-fg);
+}
+.dashboard-nav.sidebar-solid .text-white\/65,
+.dashboard-nav.sidebar-solid .text-white\/60,
+.dashboard-nav.sidebar-solid .text-white\/55,
+.dashboard-nav.sidebar-solid .text-white\/50 {
+  color: var(--sidebar-muted);
+}
+.dashboard-nav.sidebar-solid .text-white\/40,
+.dashboard-nav.sidebar-solid .text-white\/35 {
+  color: var(--sidebar-subtle);
+}
+.dashboard-nav.sidebar-solid .bg-white\/10 {
+  background-color: var(--sidebar-active-bg, color-mix(in oklab, var(--sidebar-on) 11%, transparent));
+}
+.dashboard-nav.sidebar-solid .bg-white\/5 {
+  background-color: color-mix(in oklab, var(--sidebar-on) 6%, transparent);
+}
+.dashboard-nav.sidebar-solid .border-white\/10 {
+  border-color: var(--sidebar-border, color-mix(in oklab, var(--sidebar-on) 12%, transparent));
+}
+.dashboard-nav.sidebar-solid .hover\:bg-white\/10:hover {
+  background-color: var(--sidebar-hover, color-mix(in oklab, var(--sidebar-on) 11%, transparent));
+}
+.dashboard-nav.sidebar-solid .hover\:bg-white\/5:hover {
+  background-color: var(--sidebar-hover, color-mix(in oklab, var(--sidebar-on) 6%, transparent));
+}
+.dashboard-nav.sidebar-solid .hover\:text-white:hover {
+  color: var(--sidebar-on);
+}
+
+.glass-bar {
+  background: color-mix(in oklab, white 76%, transparent);
+  border-color: color-mix(in oklab, var(--color-line) 70%, transparent);
+  box-shadow: 0 1px 0 color-mix(in oklab, white 80%, transparent);
+  backdrop-filter: blur(18px) saturate(1.3);
+}
+
+.glass-panel {
+  position: relative;
+  overflow: hidden;
+  background: color-mix(in oklab, white 88%, transparent);
+  border-color: color-mix(in oklab, var(--color-line) 76%, transparent);
+  box-shadow: 0 1px 2px color-mix(in oklab, var(--color-midnight) 4%, transparent),
+    0 1rem 2.5rem color-mix(in oklab, var(--color-midnight) 5%, transparent),
+    inset 0 1px color-mix(in oklab, white 90%, transparent);
+  backdrop-filter: blur(16px) saturate(1.2);
+  transition: transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1), border-color 240ms ease, box-shadow 240ms ease;
+}
+.glass-panel:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in oklab, var(--color-teal) 28%, var(--color-line));
+  box-shadow: 0 1px 2px color-mix(in oklab, var(--color-midnight) 4%, transparent),
+    0 1.5rem 3rem color-mix(in oklab, var(--color-midnight) 9%, transparent),
+    inset 0 1px color-mix(in oklab, white 95%, transparent);
+}
+
+.data-table {
+  scrollbar-color: color-mix(in oklab, var(--color-teal) 30%, var(--color-line)) transparent;
+}
+.data-table tbody tr {
+  transition: background-color 140ms ease;
+}
+
+.overview-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 1.5rem;
+  border: 1px solid color-mix(in oklab, var(--color-teal) 18%, var(--color-line));
+  border-radius: 1rem;
+  background:
+    radial-gradient(circle at 90% 10%, color-mix(in oklab, var(--color-mint) 18%, transparent), transparent 18rem),
+    linear-gradient(135deg, color-mix(in oklab, white 92%, transparent), color-mix(in oklab, var(--color-softmint) 55%, transparent));
+  box-shadow: 0 1.5rem 4rem color-mix(in oklab, var(--color-midnight) 8%, transparent), inset 0 1px white;
+  backdrop-filter: blur(18px);
+}
+.overview-hero::after {
+  position: absolute;
+  width: 14rem;
+  height: 14rem;
+  right: -5rem;
+  bottom: -8rem;
+  content: '';
+  border: 1px solid color-mix(in oklab, var(--color-teal) 16%, transparent);
+  border-radius: 999px;
+  box-shadow: 0 0 0 2.5rem color-mix(in oklab, var(--color-mint) 4%, transparent),
+    0 0 0 5rem color-mix(in oklab, var(--color-teal) 3%, transparent);
+}
+.overview-hero > * {
+  position: relative;
+  z-index: 1;
+}
+@media (max-width: 39.99rem) {
+  .overview-hero {
+    padding: 1rem;
+    border-radius: 0.75rem;
+  }
+}
+.overview-hero .hero-header {
+  margin-bottom: 1.25rem;
+}
+
+.stat-glow::before {
+  position: absolute;
+  width: 5rem;
+  height: 5rem;
+  right: -2rem;
+  top: -2.5rem;
+  content: '';
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--color-mint) 14%, transparent);
+  filter: blur(1rem);
+  transition: transform 300ms ease;
+}
+.stat-glow:hover::before {
+  transform: scale(1.3);
+}
+::selection {
+  background: var(--color-mint);
+  color: #0b1a1f;
+}
+h1,
+h2,
+h3,
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.025em;
+}
+.num {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+}
+:focus-visible {
+  outline: 2px solid var(--color-teal);
+  outline-offset: 2px;
+}
+.on-dark :focus-visible {
+  outline-color: #35d0ba;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+*:hover {
+  scrollbar-color: #c3d1d3 transparent;
+}
+
+.grid-fine {
+  background-image: linear-gradient(rgba(53, 208, 186, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(53, 208, 186, 0.08) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+.bf-flow {
+  background: linear-gradient(135deg, #087e8b, #35d0ba);
+}
+.bf-deep {
+  background: linear-gradient(160deg, #0b2530 0%, #0b2530 40%, #087e8b 140%);
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.flow-line {
+  stroke-dasharray: 4 8;
+  animation: dash 1.4s linear infinite;
+}
+.reveal {
+  animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.sk {
+  background: linear-gradient(90deg, #e8eeee 25%, #f3f6f6 50%, #e8eeee 75%);
+  background-size: 200% 100%;
+  animation: sk 1.4s infinite;
+}
+@keyframes sk {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes sub-fade {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.sub-fade {
+  animation: sub-fade 0.32s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .glass-panel:hover {
+    transform: none;
+  }
+}
+
+/* Tenant dark theme: surfaces that hard-code white follow the tenant surface token */
+html.bf-dark {
+  color-scheme: dark;
+}
+.bf-dark .bg-white {
+  background-color: var(--surface);
+}
+.bf-dark .bg-amber-50,
+.bf-dark .bg-green-50,
+.bf-dark .bg-red-50,
+.bf-dark .bg-blue-50 {
+  background-color: color-mix(in oklab, currentColor 14%, var(--surface));
+}
+.bf-dark .text-amber-800,
+.bf-dark .text-green-700,
+.bf-dark .text-red-700,
+.bf-dark .text-blue-700,
+.bf-dark .text-teal-600 {
+  filter: brightness(1.35);
+}
+.bf-light .bg-white {
+  background-color: #fff;
+}
+.bf-light .text-amber-800,
+.bf-light .text-green-700,
+.bf-light .text-red-700,
+.bf-light .text-blue-700,
+.bf-light .text-teal-600 {
+  filter: none;
+}
+.bf-dark .sk {
+  background: linear-gradient(90deg, #1b272c 25%, #223037 50%, #1b272c 75%);
+  background-size: 200% 100%;
+}
+
+/* Mobile text safety: wrapped rows keep a readable text column, and truncation yields to wrapping inside page content */
+.flex-wrap > .flex-1.min-w-0 {
+  flex-basis: min(100%, 14rem);
+}
+@media (max-width: 640px) {
+  main .truncate {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+    overflow-wrap: anywhere;
+  }
+}
+@media (max-width: 640px) {
+  .text-\[8px\], .text-\[9px\], .text-\[10px\], .text-\[10\.5px\] { font-size: 11px; line-height: 1.35; }
+  .text-\[76px\] { font-size: 48px; }
+  .text-\[64px\] { font-size: 44px; }
+  .text-\[44px\] { font-size: 34px; }
+}
+
+/* Product windows on phones: keep the first two columns and the last, drop the middle ones */
+@media (max-width: 640px) {
+  .shot table :is(th, td):nth-child(n+3):not(:last-child) { display: none; }
+  .shot table { table-layout: auto; }
+  .shot :is(td, th) { padding-inline-end: .5rem; }
+}
+
+/* Touch targets */
+@media (pointer: coarse) {
+  :is(main, header, .dashboard-nav) :is(button, a, [role="button"], select, summary).size-8,
+  :is(main, header, .dashboard-nav) :is(button, a, [role="button"]).size-9 { min-width: 44px; min-height: 44px; }
+  main :is(input[type="checkbox"], input[type="radio"]) { min-width: 20px; min-height: 20px; }
+}
+
+/* ---------- Safe-area and viewport foundation (iOS PWA, notch, Dynamic Island, home indicator) ---------- */
+:root {
+  --sat: env(safe-area-inset-top, 0px);
+  --sab: env(safe-area-inset-bottom, 0px);
+  --sal: env(safe-area-inset-left, 0px);
+  --sar: env(safe-area-inset-right, 0px);
+}
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+body {
+  padding-left: var(--sal);
+  padding-right: var(--sar);
+}
+/* Pages without a sticky app bar start below the status bar; pages with one let the bar absorb the inset */
+body:not(:has(.glass-bar, .site-bar)) #root {
+  padding-top: var(--sat);
+}
+/* Sticky app bars (company and platform shells): one inset, applied here only */
+.glass-bar {
+  --bar-h: 3.5rem;
+  --bar-px: 1rem;
+  box-sizing: border-box;
+  height: calc(var(--bar-h) + var(--sat));
+  padding-top: var(--sat);
+  padding-left: var(--bar-px);
+  padding-right: var(--bar-px);
+}
+.glass-bar.bar-lg {
+  --bar-h: 4rem;
+}
+@media (min-width: 64rem) {
+  .glass-bar {
+    --bar-px: 2rem;
+  }
+}
+/* Marketing header */
+.site-bar {
+  padding-top: var(--sat);
+}
+/* Drawers and sidebars reserve the insets with a spacer, so their own padding is untouched */
+.safe-top {
+  flex-shrink: 0;
+  height: var(--sat);
+}
+.safe-bottom {
+  flex-shrink: 0;
+  height: var(--sab);
+}
+/* Scroll offset so anchors and focused fields are not hidden under sticky bars */
+html {
+  scroll-padding-top: calc(5rem + var(--sat));
+  scroll-padding-bottom: calc(6rem + var(--sab));
+}
+/* Content clears the fixed mobile tab bar including the home indicator */
+.bf-content {
+  padding-bottom: calc(5rem + var(--sab));
+}
+@media (min-width: 48rem) {
+  .bf-content {
+    padding-bottom: 0;
+  }
+}
+/* Fixed toasts and banners sit above the home indicator */
+.safe-toast {
+  bottom: calc(5rem + var(--sab));
+}
+@media (min-width: 64rem) {
+  .safe-toast {
+    bottom: calc(1.5rem + var(--sab));
+  }
+}
+/* Modal shells stay inside the safe viewport */
+.safe-overlay {
+  padding-top: var(--sat);
+  padding-left: var(--sal);
+  padding-right: var(--sar);
+}
+.safe-sheet {
+  padding-bottom: max(1rem, var(--sab));
+}
+
+/* Touch devices: inputs at 16px stop iOS Safari zooming the page on focus; primary controls reach 44px */
+@media (pointer: coarse) {
+  input:not([type='checkbox'], [type='radio'], [type='range']),
+  select,
+  textarea {
+    font-size: max(16px, 1em);
+  }
+  [role='dialog'] :is(button, a, [role='button']):not(.size-5, .size-6) {
+    min-height: 40px;
+  }
+  [aria-label='Close'], [aria-label='Close navigation'], [aria-label='Open navigation'] {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+/* Landscape phones: shorter bars and dialogs that never exceed the visible height */
+@media (max-height: 30rem) and (orientation: landscape) {
+  .glass-bar {
+    --bar-h: 3rem;
+  }
+}
+
+/* black-translucent status bar draws white glyphs: back the inset with brand midnight so they stay legible over any page */
+body::before {
+  content: '';
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--sat);
+  background: var(--color-midnight);
+  pointer-events: none;
+}
+/* Popovers never extend beyond the viewport */
+[role='menu'],
+[role='listbox'] {
+  max-width: calc(100vw - 1.5rem);
+}
+
+/* Platform handbook PDF: A4 print output */
+.pdf-root { display: none; }
+@page { size: A4; margin: 0; }
+@media print {
+  body.printing-docs > #root, body.printing-docs::before { display: none !important; }
+  body.printing-docs .pdf-root { display: block; }
+  body.printing-docs { background: #fff; margin: 0; }
+  .pdf-frame { width: 100%; border-collapse: collapse; }
+  .pdf-frame > thead > tr > td { height: 14mm; padding: 0; }
+  .pdf-frame > tfoot > tr > td { height: 16mm; padding: 0; }
+  .pdf-frame > tbody > tr > td { padding: 0 14mm; }
+  .pdf-root, .pdf-root * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .pdf-page-break { break-before: page; }
+  .pdf-avoid { break-inside: avoid; }
+  .pdf-cover { break-after: page; }
+}
